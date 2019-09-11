@@ -19,3 +19,7 @@ $rv = new RegisterView();
 
 $lv->render(false, $v, $dtv);
 
+if ($rv->isRegisterSet()) {
+    echo $rv->renderRegistrationForm();
+}
+

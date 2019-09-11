@@ -1,6 +1,9 @@
 <?php
 
 class RegisterView {
+
+    private static $route = "register";
+
     public function renderRegistrationForm() {
         return '
         <form method="post">
@@ -16,5 +19,9 @@ class RegisterView {
             </fieldset>
         </form>
         ';
+    }
+
+    public function isRegisterSet() {
+        return isset($_GET[self::$route]);
     }
 }
