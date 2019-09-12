@@ -12,14 +12,14 @@ ini_set('display_errors', 'On');
 
 //CREATE OBJECTS OF THE VIEWS
 $loginView = new LoginView();
-$dtv = new DateTimeView();
-$lv = new LayoutView();
-$rv = new RegisterView();
+$dateTimeView = new DateTimeView();
+$layoutView = new LayoutView();
+$registerView = new RegisterView();
 
 
-$lv->render(false, $loginView, $dtv);
+$layoutView->render(false, $loginView, $dateTimeView);
 
-if ($rv->isRegisterSet()) {
-    echo $rv->renderRegistrationForm();
+if ($registerView->isRegisterSet()) {
+    echo $registerView->renderRegistrationForm();
 }
 
