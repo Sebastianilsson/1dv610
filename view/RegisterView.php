@@ -2,26 +2,42 @@
 
 class RegisterView {
 
-    private static $route = "register";
+    private static $username = 'RegisterView::userName';
+    private static $password = 'RegisterView::password';
+    private static $passwordRepeat = 'RegisterView::passwordRepeat';
+    private static $submitRegistration = 'RegisterView::submitRegistration';
 
     public function renderRegistrationForm() {
         return '
-        <form method="post">
+        <a href="?">Back to login</a>
+        <form method="post" action="?register">
             <fieldset>
                 <legend>Register - choose a username and password</legend>
                 <label>Username</label>
-                <input type="text" name="username" placeholder="Enter a username..." /> <br/>
+                <input type="text" name="'. self::$username .'" placeholder="Enter a username..." /> <br/>
                 <label>Password</label>
-                <input type="password" name="password" placeholder="Enter a password..." /> <br/>
+                <input type="password" name="'. self::$password .'" placeholder="Enter a password..." /> <br/>
                 <label>Repeat password</label>
-                <input type="password" name="repeatedPassword" placeholder="Repeat your password..." /> </br>
-                <input type="submit" name="submitRegistration" />
+                <input type="password" name="'. self::$passwordRepeat .'" placeholder="Repeat your password..." /> </br>
+                <input type="submit" name="'. self::$submitRegistration .'" />
             </fieldset>
         </form>
         ';
     }
 
     public function isRegisterSet() {
-        return isset($_GET[self::$route]);
+        return isset($_GET['register']);
+    }
+
+    public function getUsername() {
+        return $_POST[self::$username];
+    }
+
+    public function getPassword() {
+        return $_POST[self::$password];
+    }
+
+    public function getRepeatedPassword() {
+        return $_POST[self::$passwordRepeat];
     }
 }
