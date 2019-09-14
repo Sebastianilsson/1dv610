@@ -7,11 +7,12 @@ class MainController {
         $this->dateTimeView = new DateTimeView();
         $this->layoutView = new LayoutView();
         $this->registerView = new RegisterView();
+        $this->registerController = new RegisterController($this->registerView);
     }
 
     public function router() {
         if ($this->registerView->isRegisterSet()) {
-            echo $this->registerView->renderRegistrationForm();
+            $this->registerController->newRegistration();
         } else {
             $this->layoutView->render(false, $this->loginView, $this->dateTimeView);
         }
