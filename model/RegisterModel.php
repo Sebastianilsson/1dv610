@@ -22,7 +22,7 @@ class RegisterModel {
     public function validateRegisterInputIfSubmitted() {
         if ($this->registerView->isRegisterFormSubmitted()) {
             if ($this->checkForInputInAllFields()) {
-                if ($this->checkIfUsernameIsUnique()) {
+                if ($this->validateUsername()) {
                     if ($this->checkIfPasswordsMatch()) {
                         $this->validationOk = true;
                     }
@@ -39,8 +39,18 @@ class RegisterModel {
         }
     }
 
-    private function checkIfUsernameIsUnique() {
+    private function validateUsername() {
+        if ($this->isUsernameUnique() && $this->isUsernameCorrectFormat()) {
+            return true;
+        }
+    }
+
+    private function isUsernameUnique() {
         return $this->databaseModel->checkIfUsernameIsFree($this->username);
+    }
+
+    private function isUsernameCorrectFormat() {
+        return preg_match("/^[a-zA-Z0-9]*$/", $this->username);
     }
 
     private function checkIfPasswordsMatch() {
