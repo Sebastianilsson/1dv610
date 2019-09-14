@@ -19,13 +19,13 @@ class RegisterView {
         <form method="post" action="?register">
             <fieldset>
                 <legend>Register - choose a username and password</legend>
-                <p id='. $this->message .'>'. $this->registerMessage .'</p>
+                <p id='. self::$message .'>'. $this->registerMessage .'</p>
                 <label>Username</label>
-                <input id='. $this->username .' type="text" name="'. self::$username .'" placeholder="Enter a username..." /> <br>
+                <input id='. self::$username .' type="text" name="'. self::$username .'" placeholder="Enter a username..." /> <br>
                 <label>Password</label>
-                <input id='. $this->password .' type="password" name="'. self::$password .'" placeholder="Enter a password..." /> <br>
+                <input id='. self::$password .' type="password" name="'. self::$password .'" placeholder="Enter a password..." /> <br>
                 <label>Repeat password</label>
-                <input id='. $this->passwordRepeat .' type="password" name="'. self::$passwordRepeat .'" placeholder="Repeat your password..." /> <br>
+                <input id='. self::$passwordRepeat .' type="password" name="'. self::$passwordRepeat .'" placeholder="Repeat your password..." /> <br>
                 <input type="submit" name="'. self::$submitRegistration .'" />
             </fieldset>
         </form>
