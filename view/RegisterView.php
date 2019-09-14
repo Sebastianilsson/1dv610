@@ -2,11 +2,12 @@
 
 class RegisterView {
 
-    private static $username = 'RegisterView::userName';
-    private static $password = 'RegisterView::password';
-    private static $passwordRepeat = 'RegisterView::passwordRepeat';
+    private static $message = 'RegisterView::Message';
+    private static $username = 'RegisterView::UserName';
+    private static $password = 'RegisterView::Password';
+    private static $passwordRepeat = 'RegisterView::PasswordRepeat';
     private static $submitRegistration = 'RegisterView::submitRegistration';
-    private $message = "";
+    private $registerMessage = "";
 
     public function response() {
         return $this->generateRegistrationFormHTML();
@@ -18,13 +19,13 @@ class RegisterView {
         <form method="post" action="?register">
             <fieldset>
                 <legend>Register - choose a username and password</legend>
-                <p>'. $this->message .'</p>
+                <p id='. $this->message .'>'. $this->registerMessage .'</p>
                 <label>Username</label>
-                <input type="text" name="'. self::$username .'" placeholder="Enter a username..." /> <br>
+                <input id='. $this->username .' type="text" name="'. self::$username .'" placeholder="Enter a username..." /> <br>
                 <label>Password</label>
-                <input type="password" name="'. self::$password .'" placeholder="Enter a password..." /> <br>
+                <input id='. $this->password .' type="password" name="'. self::$password .'" placeholder="Enter a password..." /> <br>
                 <label>Repeat password</label>
-                <input type="password" name="'. self::$passwordRepeat .'" placeholder="Repeat your password..." /> <br>
+                <input id='. $this->passwordRepeat .' type="password" name="'. self::$passwordRepeat .'" placeholder="Repeat your password..." /> <br>
                 <input type="submit" name="'. self::$submitRegistration .'" />
             </fieldset>
         </form>
