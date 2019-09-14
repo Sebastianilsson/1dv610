@@ -13,6 +13,7 @@ class MainController {
 
     public function router() {
         if ($this->registerView->isRegisterSet()) {
+            $this->layoutView->render(false, $this->registerView, $this->dateTimeView);
             $this->registerController->newRegistration();
         } else {
             $this->layoutView->render(false, $this->loginView, $this->dateTimeView);

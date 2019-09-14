@@ -8,7 +8,6 @@ class RegisterController {
     }
 
     public function newRegistration() {
-        $this->showRegistrationForm();
         $this->registerModel->getUserRegistrationInput();
         $this->registerModel->validateRegisterInputIfSubmitted();
         if ($this->registerModel->isValidationOk()) {

@@ -6,13 +6,19 @@ class RegisterView {
     private static $password = 'RegisterView::password';
     private static $passwordRepeat = 'RegisterView::passwordRepeat';
     private static $submitRegistration = 'RegisterView::submitRegistration';
+    private $message = "";
 
-    public function renderRegistrationForm() {
+    public function response() {
+        return $this->generateRegistrationFormHTML();
+    }
+
+    public function generateRegistrationFormHTML() {
         return '
         <a href="?">Back to login</a>
         <form method="post" action="?register">
             <fieldset>
                 <legend>Register - choose a username and password</legend>
+                <p>'. $this->message .'</p>
                 <label>Username</label>
                 <input type="text" name="'. self::$username .'" placeholder="Enter a username..." /> <br/>
                 <label>Password</label>
@@ -55,5 +61,9 @@ class RegisterView {
 
     public function isRegisterFormSubmitted() {
         return isset($_POST[self::$submitRegistration]) ? true : false;
+    }
+
+    public function setRegisterMessage($message) {
+        $this->message = $message;
     }
 }
