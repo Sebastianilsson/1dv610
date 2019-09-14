@@ -29,15 +29,31 @@ class RegisterView {
         return isset($_GET['register']);
     }
 
+    public function isUsernameSet() {
+        return isset($_POST[self::$username]);
+    }
+
+    public function isPasswordSet() {
+        return isset($_POST[self::$password]);
+    }
+
+    public function isRepeatedPasswordSet() {
+        return isset($_POST[self::$passwordRepeat]);
+    }
+
     public function getUsername() {
-        return $_POST[self::$username];
+        return isset($_POST[self::$username]) ? $_POST[self::$username] : "";
     }
 
     public function getPassword() {
-        return $_POST[self::$password];
+        return isset($_POST[self::$password]) ? $_POST[self::$password] : "";
     }
 
     public function getRepeatedPassword() {
-        return $_POST[self::$passwordRepeat];
+        return isset($_POST[self::$passwordRepeat]) ? $_POST[self::$passwordRepeat] : "";
+    }
+
+    public function isRegisterFormSubmitted() {
+        return isset($_POST[self::$submitRegistration]) ? true : false;
     }
 }

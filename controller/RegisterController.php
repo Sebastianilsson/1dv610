@@ -9,6 +9,11 @@ class RegisterController {
     public function newRegistration() {
         $this->showRegistrationForm();
         $this->registerModel->getUserRegistrationInput();
+        $this->registerModel->validateRegisterInputIfSubmitted();
+        if ($this->registerModel->isValidationOk()) {
+            $this->registerModel-hashPassword();
+            
+        }
     }
 
     private function showRegistrationForm() {
