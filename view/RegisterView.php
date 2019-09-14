@@ -20,11 +20,11 @@ class RegisterView {
                 <legend>Register - choose a username and password</legend>
                 <p>'. $this->message .'</p>
                 <label>Username</label>
-                <input type="text" name="'. self::$username .'" placeholder="Enter a username..." /> <br/>
+                <input type="text" name="'. self::$username .'" placeholder="Enter a username..." /> <br>
                 <label>Password</label>
-                <input type="password" name="'. self::$password .'" placeholder="Enter a password..." /> <br/>
+                <input type="password" name="'. self::$password .'" placeholder="Enter a password..." /> <br>
                 <label>Repeat password</label>
-                <input type="password" name="'. self::$passwordRepeat .'" placeholder="Repeat your password..." /> </br>
+                <input type="password" name="'. self::$passwordRepeat .'" placeholder="Repeat your password..." /> <br>
                 <input type="submit" name="'. self::$submitRegistration .'" />
             </fieldset>
         </form>
