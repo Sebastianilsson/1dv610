@@ -3,12 +3,13 @@
 class LoginView {
 	private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
-	private static $name = 'LoginView::UserName';
+	private static $username = 'LoginView::UserName';
 	private static $password = 'LoginView::Password';
 	private static $cookieName = 'LoginView::CookieName';
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
+	private $logInMessage = '';
 
 	
 
@@ -20,9 +21,8 @@ class LoginView {
 	 * @return  void BUT writes to standard output and cookies!
 	 */
 	public function response() {
-		$message = '';
-		
-		$response = $this->generateLoginFormHTML($message);
+		$this->logInMessage = '';
+		$response = $this->generateLoginFormHTML();
 		//$response .= $this->generateLogoutButtonHTML($message);
 		return $response;
 	}
@@ -32,10 +32,10 @@ class LoginView {
 	* @param $message, String output message
 	* @return  void, BUT writes to standard output!
 	*/
-	private function generateLogoutButtonHTML($message) {
+	private function generateLogoutButtonHTML() {
 		return '
 			<form  method="post" >
-				<p id="' . self::$messageId . '">' . $message .'</p>
+				<p id="' . self::$messageId . '">' . $this->logInMessage .'</p>
 				<input type="submit" name="' . self::$logout . '" value="logout"/>
 			</form>
 		';
@@ -52,10 +52,10 @@ class LoginView {
 			<form method="post" > 
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
-					<p id="' . self::$messageId . '">' . $message . '</p>
+					<p id="' . self::$messageId . '">' . $this->logInMessage . '</p>
 					
-					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<label for="' . self::$username . '">Username :</label>
+					<input type="text" id="' . self::$username . '" name="' . self::$username . '" value="" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -68,7 +68,23 @@ class LoginView {
 			</form>
 		';
 	}
+
+	public function getUsername() {
+        return isset($_POST[self::$username]) ? $_POST[self::$username] : "";
+    }
+
+    public function getPassword() {
+        return isset($_POST[self::$password]) ? $_POST[self::$password] : "";
+	}
 	
+	public function isLoginFormSubmitted() {
+		return isset($_POST[self::$login]);
+	}
+
+	public function addMessage($message) {
+		$this->logInMessage = $message;
+	}
+
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME

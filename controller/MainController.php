@@ -9,6 +9,7 @@ class MainController {
         $this->layoutView = new LayoutView();
         $this->registerView = new RegisterView();
         $this->registerController = new RegisterController($this->registerView, $this->databaseModel);
+        $this->loginController = new LoginController($this->loginView, $this->databaseModel);
     }
 
     public function router() {
@@ -17,6 +18,7 @@ class MainController {
             $this->registerController->newRegistration();
         } else {
             $this->layoutView->render(false, $this->loginView, $this->dateTimeView);
+            $this->loginController->newLogin();
         }
     }
 
