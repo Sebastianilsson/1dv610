@@ -1,9 +1,10 @@
 <?php
 
 class RegisterController {
-    public function __construct($registerView) {
+    public function __construct($registerView, $databaseModel) {
         $this->registerView = $registerView;
-        $this->registerModel = new RegisterModel($this->registerView);
+        $this->databaseModel = $databaseModel;
+        $this->registerModel = new RegisterModel($this->registerView, $this->databaseModel);
     }
 
     public function newRegistration() {
@@ -11,8 +12,8 @@ class RegisterController {
         $this->registerModel->getUserRegistrationInput();
         $this->registerModel->validateRegisterInputIfSubmitted();
         if ($this->registerModel->isValidationOk()) {
-            $this->registerModel-hashPassword();
-            
+            $this->registerModel->hashPassword();
+            $this->registerModel->saveUserToDatabase();
         }
     }
 

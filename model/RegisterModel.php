@@ -5,12 +5,12 @@ class RegisterModel {
     private $password;
     private $passwordRepeat;
     private $registerView;
-    private $databaseConnection;
+    private $databaseModel;
     private $validationOk = false;
 
-    public function __construct($registerView) {
+    public function __construct($registerView, $databaseModel) {
         $this->registerView = $registerView;
-        // $this->databaseConnection = $databaseConnection;
+        $this->databaseModel = $databaseModel;
     }
 
     public function getUserRegistrationInput() {
@@ -40,7 +40,7 @@ class RegisterModel {
     }
 
     private function checkIfUsernameIsUnique() {
-        return true;
+        return $this->databaseModel->checkIfUsernameIsFree($this->username);
     }
 
     private function checkIfPasswordsMatch() {
@@ -53,5 +53,13 @@ class RegisterModel {
 
     public function isValidationOk() {
         return $this->validationOk;
+    }
+
+    public function hashPassword() {
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+    }
+
+    public function saveUserToDatabase() {
+        $this->databaseModel->saveUserToDatabase($this->username, $this->password);
     }
 }
