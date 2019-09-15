@@ -16,7 +16,8 @@ class RegisterController {
         if ($this->registerModel->isValidationOk()) {
             $this->registerModel->hashPassword();
             $this->registerModel->saveUserToDatabase();
+        } else {
+            $this->layoutView->render(false, $this->registerView);
         }
-        $this->layoutView->render(false, $this->registerView);
     }
 }

@@ -1,11 +1,31 @@
 <?php
 
 class DatabaseModel {
+
     private $databaseServerName = "localhost";
     private $databaseUserName = "root";
     private $databasePassword = "";
     private $databaseName = "1dv610-l2";
     private $connection;
+    public function __construct() {
+        $this->checkIfOnLocalhost();
+    }
+
+    private function checkIfOnLocalhost() {
+        $whitelist = array(
+            '127.0.0.1',
+            '::1'
+        );
+        
+        if(in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+            return;
+        } else {
+            $this->databaseServerName = getenv('DATABASE_SERVER_NAME');
+            $this->databaseUserName = getenv('DATABASE_USERNAME');
+            $this->databasePassword = getenv('DATABASE_PASSWORD');
+            $this->databaseName = getenv('DATABASE_NAME');
+        }
+    }
 
     private function connectToDatabase() {
         $this->connection = mysqli_connect($this->databaseServerName, $this->databaseUserName, $this->databasePassword, $this->databaseName);
