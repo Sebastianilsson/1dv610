@@ -6,7 +6,7 @@ class RegisterView {
     private static $username = 'RegisterView::UserName';
     private static $password = 'RegisterView::Password';
     private static $passwordRepeat = 'RegisterView::PasswordRepeat';
-    private static $submitRegistration = 'RegisterView::submitRegistration';
+    private static $submitRegistration = 'RegisterView::Register';
     private $name = '';
     private $registerMessage = "";
 
