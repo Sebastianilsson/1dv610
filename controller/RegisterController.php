@@ -11,7 +11,7 @@ class RegisterController {
     public function newRegistration() {
         // $this->layoutView->render(false, $this->registerView);
         $this->registerModel->getUserRegistrationInput();
-        $this->registerView->setUsernameValue();
+        $this->registerView->setUsernameValue($this->registerView->getUsername());
         $this->registerModel->validateRegisterInputIfSubmitted();
         if ($this->registerModel->isValidationOk()) {
             $this->registerModel->hashPassword();

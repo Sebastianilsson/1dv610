@@ -70,8 +70,8 @@ class RegisterView {
         return isset($_POST[self::$submitRegistration]) ? true : false;
     }
 
-    public function setUsernameValue() {
-        $this->name = $this->getUsername();
+    public function setUsernameValue($name) {
+        $this->name = $name;
     }
 
     public function setRegisterMessage($message) {

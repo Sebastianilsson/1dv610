@@ -47,13 +47,18 @@ class RegisterModel {
 
     private function validateUsername() {
         if ($this->isUsernameCorrectFormat()) {
-            if ($this->isUsernameUnique()) {
-                return true;
+            if (strlen($this->username) >= 3) {
+                if ($this->isUsernameUnique()) {
+                    return true;
+                } else {
+                    $this->registerView->setRegisterMessage('User exists, pick another username.');
+                }
             } else {
-                $this->registerView->setRegisterMessage('User exists, pick another username.');
+                $this->registerView->setRegisterMessage('Username has too few characters, at least 3 characters.');
             }
         } else {
-            $this->registerView->setRegisterMessage('Username has too few characters, at least 3 characters.');
+            $this->registerView->setUsernameValue(strip_tags($this->username));
+            $this->registerView->setRegisterMessage('Username contains invalid characters.');
         }
     }
 
@@ -62,7 +67,11 @@ class RegisterModel {
     }
 
     private function isUsernameCorrectFormat() {
-        return preg_match("/([a-zA-Z0-9]){3,}/", $this->username);
+        if (preg_match_all("/[^a-zA-Z0-9]/", $this->username) > 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private function validatePassword() {
