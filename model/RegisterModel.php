@@ -32,11 +32,17 @@ class RegisterModel {
     }
 
     private function checkForInputInAllFields() {
-        if ($this->username != "" && $this->password != "" && $this->passwordRepeat != "") {
+        $message = '';
+        if ($this->username == "") {
+            $message .= 'Username has too few characters, at least 3 characters.';
+        } 
+        if ($this->password == "") {
+           $message .= '<br> Password has too few characters, at least 6 characters.';
+        } 
+        if ($message == '') {
             return true;
-        } else {
-            echo "nope....";
         }
+        $this->registerView->setRegisterMessage($message);
     }
 
     private function validateUsername() {
