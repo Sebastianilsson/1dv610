@@ -10,6 +10,7 @@ class LoginController {
 
     public function newLogin() {
         $this->loginModel->getUserLoginInput();
+        $this->loginView->setUsernameValue();
         if ($this->loginModel->validateLoginInputIfSubmitted()) {
             
         } else {

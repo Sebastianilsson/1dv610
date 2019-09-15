@@ -9,6 +9,7 @@ class LoginView {
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
+	private $name = '';
 	private $logInMessage = '';
 
 	
@@ -55,7 +56,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' .$this->logInMessage. '</p>
 					
 					<label for="' . self::$username . '">Username :</label>
-					<input type="text" id="' . self::$username . '" name="' . self::$username . '" value="" />
+					<input type="text" id="' . self::$username . '" name="' . self::$username . '" value="'.$this->name.'" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -83,6 +84,10 @@ class LoginView {
 	
 	public function isLoginFormSubmitted() {
 		return isset($_POST[self::$login]);
+	}
+
+	public function setUsernameValue() {
+		$this->name = $this->getUsername();
 	}
 
 	public function addMessage($message) {
