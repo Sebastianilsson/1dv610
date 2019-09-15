@@ -40,14 +40,14 @@ class RegisterModel {
     }
 
     private function validateUsername() {
-        if ($this->isUsernameUnique()) {
-            if ($this->isUsernameCorrectFormat()) {
+        if ($this->isUsernameCorrectFormat()) {
+            if ($this->isUsernameUnique()) {
                 return true;
             } else {
-                $this->registerView->setRegisterMessage('Username has too few characters, at least 3 characters.');
+                $this->registerView->setRegisterMessage('User exists, pick another username.');
             }
         } else {
-            $this->registerView->setRegisterMessage('User exists, pick another username.');
+            $this->registerView->setRegisterMessage('Username has too few characters, at least 3 characters.');
         }
     }
 
