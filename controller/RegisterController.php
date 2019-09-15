@@ -9,12 +9,15 @@ class RegisterController {
     }
 
     public function newRegistration() {
-        $this->layoutView->render(false, $this->registerView);
+        // $this->layoutView->render(false, $this->registerView);
         $this->registerModel->getUserRegistrationInput();
+        $this->registerView->setUsernameValue();
         $this->registerModel->validateRegisterInputIfSubmitted();
         if ($this->registerModel->isValidationOk()) {
             $this->registerModel->hashPassword();
             $this->registerModel->saveUserToDatabase();
+        } else {
+            $this->layoutView->render(false, $this->registerView);
         }
     }
 }

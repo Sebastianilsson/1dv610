@@ -7,13 +7,14 @@ class RegisterView {
     private static $password = 'RegisterView::Password';
     private static $passwordRepeat = 'RegisterView::PasswordRepeat';
     private static $submitRegistration = 'RegisterView::submitRegistration';
+    private $name = '';
     private $registerMessage = "";
 
     public function response() {
         return $this->generateRegistrationFormHTML();
     }
 
-    public function generateRegistrationFormHTML() {
+    private function generateRegistrationFormHTML() {
         return '
         <a href="?">Back to login</a>
         <h2>Register new user</h2>
@@ -22,7 +23,7 @@ class RegisterView {
                 <legend>Register - choose a username and password</legend>
                 <p id='. self::$message .'>'. $this->registerMessage .'</p>
                 <label>Username</label>
-                <input id='. self::$username .' type="text" name="'. self::$username .'" placeholder="Enter a username..." /> <br>
+                <input id='. self::$username .' type="text" name="'. self::$username .'" placeholder="Enter a username..." value="'.$this->name.'" /> <br>
                 <label>Password</label>
                 <input id='. self::$password .' type="password" name="'. self::$password .'" placeholder="Enter a password..." /> <br>
                 <label>Repeat password</label>
@@ -35,6 +36,10 @@ class RegisterView {
 
     public function isRegisterSet() {
         return isset($_GET['register']);
+    }
+
+    public function isRegistrationRequested() {
+        return isset($_POST[self::$submitRegistration]);
     }
 
     public function isUsernameSet() {
@@ -63,6 +68,10 @@ class RegisterView {
 
     public function isRegisterFormSubmitted() {
         return isset($_POST[self::$submitRegistration]) ? true : false;
+    }
+
+    public function setUsernameValue() {
+        $this->name = $this->getUsername();
     }
 
     public function setRegisterMessage($message) {

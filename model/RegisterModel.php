@@ -23,11 +23,9 @@ class RegisterModel {
         if ($this->registerView->isRegisterFormSubmitted()) {
             if ($this->checkForInputInAllFields()) {
                 if ($this->validateUsername()) {
-                    if ($this->checkIfPasswordsMatch()) {
+                    if ($this->validatePassword()) {
                         $this->validationOk = true;
                     }
-                } else {
-                    $this->registerView->setRegisterMessage("test");
                 }
             }
         }
@@ -42,8 +40,14 @@ class RegisterModel {
     }
 
     private function validateUsername() {
-        if ($this->isUsernameUnique() && $this->isUsernameCorrectFormat()) {
-            return true;
+        if ($this->isUsernameUnique()) {
+            if ($this->isUsernameCorrectFormat()) {
+                return true;
+            } else {
+                $this->registerView->setRegisterMessage('Username has too few characters, at least 3 characters.');
+            }
+        } else {
+            $this->registerView->setRegisterMessage('User exists, pick another username.');
         }
     }
 
@@ -52,7 +56,19 @@ class RegisterModel {
     }
 
     private function isUsernameCorrectFormat() {
-        return preg_match("/^[a-zA-Z0-9]*$/", $this->username);
+        return preg_match("/([a-zA-Z0-9]){3,}/", $this->username);
+    }
+
+    private function validatePassword() {
+        if (strlen($this->password) >= 6) {
+            if ($this->checkIfPasswordsMatch()) {
+                return true;
+            } else {
+                $this->registerView->setRegisterMessage('Passwords do not match.');
+            }
+        } else {
+            $this->registerView->setRegisterMessage('Password has too few characters, at least 6 characters.');
+        }
     }
 
     private function checkIfPasswordsMatch() {
