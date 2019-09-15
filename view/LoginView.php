@@ -21,7 +21,7 @@ class LoginView {
 	 * @return  void BUT writes to standard output and cookies!
 	 */
 	public function response() {
-		$this->logInMessage = '';
+		// $this->logInMessage = '';
 		$response = $this->generateLoginFormHTML();
 		//$response .= $this->generateLogoutButtonHTML($message);
 		return $response;
@@ -46,13 +46,13 @@ class LoginView {
 	* @param $message, String output message
 	* @return  void, BUT writes to standard output!
 	*/
-	private function generateLoginFormHTML($message) {
+	private function generateLoginFormHTML() {
 		return '
 			<a href="?register">Register a new user</a>
 			<form method="post" > 
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
-					<p id="' . self::$messageId . '">' . $this->logInMessage . '</p>
+					<p id="' . self::$messageId . '">' .$this->logInMessage. '</p>
 					
 					<label for="' . self::$username . '">Username :</label>
 					<input type="text" id="' . self::$username . '" name="' . self::$username . '" value="" />
@@ -69,6 +69,10 @@ class LoginView {
 		';
 	}
 
+	public function isLoginRequested() {
+		return isset($_POST[self::$login]);
+	}
+
 	public function getUsername() {
         return isset($_POST[self::$username]) ? $_POST[self::$username] : "";
     }
@@ -83,6 +87,7 @@ class LoginView {
 
 	public function addMessage($message) {
 		$this->logInMessage = $message;
+		$this->response();
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES

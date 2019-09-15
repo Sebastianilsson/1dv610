@@ -26,6 +26,8 @@ class RegisterModel {
                     if ($this->checkIfPasswordsMatch()) {
                         $this->validationOk = true;
                     }
+                } else {
+                    $this->registerView->setRegisterMessage("test");
                 }
             }
         }

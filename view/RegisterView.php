@@ -66,6 +66,6 @@ class RegisterView {
     }
 
     public function setRegisterMessage($message) {
-        $this->message = $message;
+        $this->registerMessage = $message;
     }
 }

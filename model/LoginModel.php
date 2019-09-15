@@ -6,7 +6,8 @@ class LoginModel {
     private $loginView;
     private $databaseModel;
 
-    public function __construct($loginView, $databaseModel) {
+    public function __construct($layoutView, $loginView, $databaseModel) {
+        $this->layoutView = $layoutView;
         $this->loginView = $loginView;
         $this->databaseModel = $databaseModel;
     }
@@ -22,7 +23,7 @@ class LoginModel {
                 if ($this->password != "") {
                     return true;
                 } else {
-    
+                    $this->loginView->addMessage('Password is missing');
                 }
             } else {
                 $this->loginView->addMessage('Username is missing');

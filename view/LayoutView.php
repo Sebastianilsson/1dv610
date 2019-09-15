@@ -2,8 +2,12 @@
 
 
 class LayoutView {
+
+  public function __construct($dateTimeView) {
+    $this->dateTimeView = $dateTimeView;
+  }
   
-  public function render($isLoggedIn, $activeView, DateTimeView $dtv) {
+  public function render($isLoggedIn, $activeView) {
     echo '<!DOCTYPE html>
       <html>
         <head>
@@ -17,7 +21,7 @@ class LayoutView {
           <div class="container">
               ' . $activeView->response() . '
               
-              ' . $dtv->show() . '
+              ' . $this->dateTimeView->show() . '
           </div>
          </body>
       </html>
