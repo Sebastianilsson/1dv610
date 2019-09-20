@@ -13,6 +13,7 @@ class LoginController {
         $this->loginView->setUsernameValue($this->loginView->getUsername());
         if ($this->loginModel->validateLoginInputIfSubmitted()) {
             if ($this->loginModel->checkIfCredentialsMatchInDatabase()) {
+                $this->loginView->setIsLoggedIn(true);
                 $this->loginView->addMessage('Welcome');
                 $this->layoutView->render(true, $this->loginView);
             } else {
