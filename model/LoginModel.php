@@ -38,6 +38,8 @@ class LoginModel {
             if ($this->databaseModel->userPasswordMatch($this->username, $this->password)) {
                 $this->loginView->setIsLoggedIn(true);
                 return true;
+            } else {
+                $this->loginView-addMessage('Wrong name or password');
             }
         }
         
