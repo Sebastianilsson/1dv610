@@ -21,7 +21,7 @@ class MainController {
             $this->loginController->logout();
         } else {
             $this->loginView->addMessage("");
-            $this->layoutView->render($this->loginView->getIsLoggedIn(), $this->loginView);
+            $this->layoutView->render(false, $this->loginView);
         }
     }
 
