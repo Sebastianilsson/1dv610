@@ -106,7 +106,8 @@ class DatabaseModel {
                     return true;
                 }
             } else {
-                echo "No user";
+
+                return false;
             }
         }
     }
