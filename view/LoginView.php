@@ -11,6 +11,7 @@ class LoginView {
 	private static $messageId = 'LoginView::Message';
 	private $name = '';
 	private $logInMessage = '';
+	private $loggedIn = false;
 
 	
 
@@ -81,6 +82,10 @@ class LoginView {
     public function getPassword() {
         return isset($_POST[self::$password]) ? $_POST[self::$password] : "";
 	}
+
+	public function getIsLoggedIn() {
+		return $this->loggedIn;
+	}
 	
 	public function isLoginFormSubmitted() {
 		return isset($_POST[self::$login]);
@@ -88,11 +93,14 @@ class LoginView {
 
 	public function setUsernameValue($name) {
 		$this->name = $name;
-		echo $name;
 	}
 
 	public function addMessage($message) {
 		$this->logInMessage = $message;
+	}
+
+	public function setIsLoggedIn($bool) {
+		$this->loggedIn = $bool;
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES

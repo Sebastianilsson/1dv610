@@ -35,7 +35,8 @@ class LoginModel {
     public function checkIfCredentialsMatchInDatabase() {
         //ONE FUNC WITH IS USERNAME FREE??
         if ($this->databaseModel->usernameExistsInDatabase($this->username)) {
-            if ($this->databaseModel->userPasswordMatch()) {
+            if ($this->databaseModel->userPasswordMatch($this->username, $this->password)) {
+                $this->loginView->setIsLoggedIn(true);
                 return true;
             }
         }

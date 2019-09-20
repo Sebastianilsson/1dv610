@@ -10,7 +10,7 @@ class LoginController {
 
     public function newLogin() {
         $this->loginModel->getUserLoginInput();
-        $this->loginView->setUsernameValue();
+        $this->loginView->setUsernameValue($this->loginView->getUsername());
         if ($this->loginModel->validateLoginInputIfSubmitted()) {
             if ($this->loginModel->checkIfCredentialsMatchInDatabase()) {
                 $this->layoutView->render(true, $this->loginView);
@@ -18,6 +18,5 @@ class LoginController {
         } else {
             $this->layoutView->render(false, $this->loginView);
         }
-        
     }
 }
