@@ -88,6 +88,7 @@ class LoginView {
 
 	public function setUsernameValue($name) {
 		$this->name = $name;
+		echo $name;
 	}
 
 	public function addMessage($message) {
