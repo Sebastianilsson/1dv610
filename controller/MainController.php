@@ -17,6 +17,8 @@ class MainController {
             $this->registerController->newRegistration();
         } elseif ($this->loginView->isLoginRequested()) {
             $this->loginController->newLogin();
+        } elseif ($this->loginView->isLoggedOutRequested()) {
+            $this->loginController->logout();
         } else {
             $this->layoutView->render($this->loginView->getIsLoggedIn(), $this->loginView);
         }

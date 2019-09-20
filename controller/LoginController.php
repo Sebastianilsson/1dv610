@@ -23,4 +23,9 @@ class LoginController {
             $this->layoutView->render(false, $this->loginView);
         }
     }
+
+    public function logout() {
+        $this->loginView->addMessage('Bye bye!');
+        $this->layoutView->render(false, $this->loginView);
+    }
 }
