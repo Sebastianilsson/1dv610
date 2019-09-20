@@ -80,6 +80,7 @@ class DatabaseModel {
             mysqli_stmt_execute($statement);
             mysqli_stmt_store_result($statement);
             $nrOfUsersWithUsername = mysqli_stmt_num_rows($statement);
+            print_r($nrOfUsersWithUsername);
             mysqli_stmt_close($statement);
             mysqli_close($this->connection);
             if ($nrOfUsersWithUsername == 1) {
@@ -102,6 +103,8 @@ class DatabaseModel {
             $matchingUser = mysqli_stmt_get_result($statement);
             if ($user = mysqli_fetch_assoc($matchingUser)) {    
                 $matchingPassword = password_verify($password, $user['password']);
+                mysqli_stmt_close($statement);
+                mysqli_close($this->connection);
                 if ($matchingPassword) {
                     return true;
                 }

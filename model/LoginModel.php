@@ -44,7 +44,6 @@ class LoginModel {
         } else {
             return false;
         }
-        
     }
 
     private function usernameInputExists() {
