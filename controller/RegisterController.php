@@ -18,7 +18,7 @@ class RegisterController {
             $this->registerModel->hashPassword();
             $this->registerModel->saveUserToDatabase();
             $this->layoutView->render(false, $this->loginView);
-            header("LOCATION: index.php");
+            header("LOCATION: /index.php");
         } else {
             $this->layoutView->render(false, $this->registerView);
         }
