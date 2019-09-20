@@ -18,6 +18,7 @@ class LoginController {
                 $_SESSION['loggedIn'] = true;
                 $this->loginView->addMessage('Welcome');
                 $this->layoutView->render(true, $this->loginView);
+                $this->loginView->addMessage('');
             } else {
                 $this->loginView->addMessage('Wrong name or password');
                 $this->layoutView->render(false, $this->loginView);
