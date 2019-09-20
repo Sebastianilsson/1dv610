@@ -39,7 +39,7 @@ class LoginModel {
                 $this->loginView->setIsLoggedIn(true);
                 return true;
             } else {
-                $this->loginView-addMessage('Wrong name or password');
+                return false;
             }
         }
         
