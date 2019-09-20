@@ -86,8 +86,8 @@ class LoginView {
 		return isset($_POST[self::$login]);
 	}
 
-	public function setUsernameValue() {
-		$this->name = $this->getUsername();
+	public function setUsernameValue($name) {
+		$this->name = $name;
 	}
 
 	public function addMessage($message) {

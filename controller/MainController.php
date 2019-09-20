@@ -8,7 +8,7 @@ class MainController {
         $this->dateTimeView = new DateTimeView();
         $this->layoutView = new LayoutView($this->dateTimeView);
         $this->registerView = new RegisterView();
-        $this->registerController = new RegisterController($this->layoutView, $this->registerView, $this->databaseModel);
+        $this->registerController = new RegisterController($this->layoutView, $this->registerView, $this->loginView, $this->databaseModel);
         $this->loginController = new LoginController($this->layoutView, $this->loginView, $this->databaseModel);
     }
 

@@ -1,9 +1,10 @@
 <?php
 
 class RegisterController {
-    public function __construct($layoutView, $registerView, $databaseModel) {
+    public function __construct($layoutView, $registerView, $loginView, $databaseModel) {
         $this->registerView = $registerView;
         $this->databaseModel = $databaseModel;
+        $this->loginView = $loginView;
         $this->layoutView = $layoutView;
         $this->registerModel = new RegisterModel($this->registerView, $this->databaseModel);
     }
@@ -16,7 +17,11 @@ class RegisterController {
         if ($this->registerModel->isValidationOk()) {
             $this->registerModel->hashPassword();
             $this->registerModel->saveUserToDatabase();
+            $this->layoutView->render(false, $this->loginView);
+            header("LOCATION: index.php");
+        } else {
+            $this->layoutView->render(false, $this->registerView);
         }
-        $this->layoutView->render(false, $this->registerView);
+        
     }
 }
