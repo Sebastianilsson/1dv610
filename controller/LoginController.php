@@ -25,8 +25,10 @@ class LoginController {
     }
 
     public function logout() {
-        $this->loginView->addMessage('Bye bye!');
-        $this->loginView->setIsLoggedIn(false);
-        $this->layoutView->render(false, $this->loginView);
+        if ($this->loginView->getIsLoggedIn()) {
+            $this->loginView->addMessage('Bye bye!');
+            $this->loginView->setIsLoggedIn(false);
+            $this->layoutView->render(false, $this->loginView);
+        }
     }
 }
