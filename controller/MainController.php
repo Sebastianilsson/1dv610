@@ -20,7 +20,7 @@ class MainController {
         } elseif ($this->loginView->isLoggedOutRequested()) {
             $this->loginController->logout();
         } else {
-            $this->layoutView->render(false, $this->loginView);
+            $this->layoutView->render($this->loginView->getIsLoggedIn(), $this->loginView);
         }
     }
 
