@@ -68,7 +68,6 @@ class RegisterView {
 
     public function isRegisterFormSubmitted() {
         if (isset($_POST[self::$submitRegistration])) {
-            header("LOCATION: /index.php");
             return true;
         } else {
             return false;
