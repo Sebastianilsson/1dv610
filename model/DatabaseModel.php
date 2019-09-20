@@ -80,6 +80,7 @@ class DatabaseModel {
             mysqli_stmt_execute($statement);
             mysqli_stmt_store_result($statement);
             $nrOfUsersWithUsername = mysqli_stmt_num_rows($statement);
+            print_r($nrOfUsersWithUsername);
             mysqli_stmt_close($statement);
             mysqli_close($this->connection);
             if ($nrOfUsersWithUsername == 1) {
