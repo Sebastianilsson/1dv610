@@ -92,7 +92,6 @@ class LoginView {
 
 	public function addMessage($message) {
 		$this->logInMessage = $message;
-		$this->response();
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES

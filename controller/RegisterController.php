@@ -17,6 +17,8 @@ class RegisterController {
         if ($this->registerModel->isValidationOk()) {
             $this->registerModel->hashPassword();
             $this->registerModel->saveUserToDatabase();
+            $this->loginView->setUsernameValue($this->registerView->getUsername());
+            $this->loginView->addMessage("Registered new user");
             $this->layoutView->render(false, $this->loginView);
             header("LOCATION: /index.php");
         } else {
