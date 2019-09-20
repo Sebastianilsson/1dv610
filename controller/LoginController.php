@@ -6,6 +6,7 @@ class LoginController {
         $this->loginView = $loginView;
         $this->databaseModel = $databaseModel;
         $this->loginModel = new LoginModel($this->layoutView, $this->loginView, $this->databaseModel);
+        session_start();
     }
 
     public function newLogin() {
@@ -14,6 +15,7 @@ class LoginController {
         if ($this->loginModel->validateLoginInputIfSubmitted()) {
             if ($this->loginModel->checkIfCredentialsMatchInDatabase()) {
                 $this->loginView->setIsLoggedIn(true);
+                $_SESSION['loggedIn'] = true;
                 $this->loginView->addMessage('Welcome');
                 $this->layoutView->render(true, $this->loginView);
             } else {
@@ -26,10 +28,12 @@ class LoginController {
     }
 
     public function logout() {
-        if ($this->loginView->getIsLoggedIn()) {
+        if($_SESSION['loggedIn']) {
             $this->loginView->addMessage('Bye bye!');
             $this->loginView->setIsLoggedIn(false);
+            $_SESSION['loggedIn'] = false;
             $this->layoutView->render(false, $this->loginView);
         }
+            
     }
 }
