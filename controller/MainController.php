@@ -19,6 +19,8 @@ class MainController {
             $this->loginController->newLogin();
         } elseif ($this->loginView->isLoggedOutRequested()) {
             $this->loginController->logout();
+        } elseif(isset($_SESSION['loggedIn'])) {
+            $this->layoutView->render(true, $this->loginView);
         } else {
             $this->loginView->addMessage("");
             $this->layoutView->render(false, $this->loginView);

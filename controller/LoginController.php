@@ -29,11 +29,13 @@ class LoginController {
 
     public function logout() {
         if($_SESSION['loggedIn']) {
+            session_destroy();
             $this->loginView->addMessage('Bye bye!');
             $this->loginView->setIsLoggedIn(false);
             $_SESSION['loggedIn'] = false;
             $this->layoutView->render(false, $this->loginView);
+        } else {
+            $this->layoutView->render(false, $this->loginView);
         }
-            
     }
 }
