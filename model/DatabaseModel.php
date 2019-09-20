@@ -68,4 +68,46 @@ class DatabaseModel {
             mysqli_close($this->connection);
         }
     }
+
+    public function usernameExistsInDatabase($username) {
+        $this->connectToDatabase();
+        $sql = "SELECT username FROM users WHERE username=?";
+        $statement = mysqli_stmt_init($this->connection);
+        if (!mysqli_stmt_prepare($statement, $sql)) {
+            echo "fail to get user...";
+        } else {
+            mysqli_stmt_bind_param($statement, "s", $username);
+            mysqli_stmt_execute($statement);
+            mysqli_stmt_store_result($statement);
+            $nrOfUsersWithUsername = mysqli_stmt_num_rows($statement);
+            mysqli_stmt_close($statement);
+            mysqli_close($this->connection);
+            if ($nrOfUsersWithUsername == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public function userPasswordMatch($username, $password) {
+        $this->connectToDatabase();
+        $sql = "SELECT * FROM users WHERE username=?";
+        $statement = mysqli_stmt_init($this->connection);
+        if (!mysqli_stmt_prepare($statement, $sql)) {
+            echo "Failed to get user";
+        } else {
+            mysqli_stmt_bind_param($statement, "ss", $username, $password);
+            mysqli_stmt_execute($statement);
+            $matchingUser = mysqli_stmt_get_result($statement);
+            if ($user = mysqli_fetch_assoc($matchingUser)) {
+                $matchingPassword = password_verify($password, $user['password']);
+                if ($matchingPassword) {
+                    return true;
+                }
+            } else {
+                echo "No user";
+            }
+        }
+    }
 }

@@ -17,8 +17,7 @@ class RegisterController {
         if ($this->registerModel->isValidationOk()) {
             $this->registerModel->hashPassword();
             $this->registerModel->saveUserToDatabase();
-            //MOVE
-            header("LOCATION: https://l2-1dv610-sn222zh.herokuapp.com/index.php");
+            //MOVEs
             $this->loginView->setUsernameValue($this->registerView->getUsername());
             $this->loginView->addMessage("Registered new user.");
             $this->layoutView->render(false, $this->loginView);

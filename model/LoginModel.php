@@ -19,15 +19,50 @@ class LoginModel {
 
     public function validateLoginInputIfSubmitted() {
         if ($this->loginView->isLoginFormSubmitted()) {
-            if ($this->username != "") {
-                if ($this->password != "") {
-                    return true;
-                } else {
-                    $this->loginView->addMessage('Password is missing');
+            if ($this->usernameInputExists()) {
+                if ($this->passwordInputExists()) {
+                    if ($this->isUsernameCorrectFormat()) {
+                        return true;
+                    } else {
+                        $this->loginView->setUsernameValue(strip_tags($this->username));
+                        $this->loginView->addMessage('Username contains invalid characters.');
+                    }
                 }
-            } else {
-                $this->loginView->addMessage('Username is missing');
             }
+        }
+    }
+
+    public function checkIfCredentialsMatchInDatabase() {
+        //ONE FUNC WITH IS USERNAME FREE??
+        if ($this->databaseModel->usernameExistsInDatabase($this->username)) {
+            if ($this->databaseModel->userPasswordMatch()) {
+                return true;
+            }
+        }
+        
+    }
+
+    private function usernameInputExists() {
+        if ($this->username != "") {
+            return true;
+        } else {
+            $this->loginView->addMessage('Username is missing');
+        }
+    }
+
+    private function passwordInputExists() {
+        if ($this->password != "") {
+            return true;
+        } else {
+            $this->loginView->addMessage('Password is missing');
+        }
+    }
+
+    private function isUsernameCorrectFormat() {
+        if (preg_match_all("/[^a-zA-Z0-9]/", $this->username) > 0) {
+            return false;
+        } else {
+            return true;
         }
     }
 }

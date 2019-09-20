@@ -12,7 +12,9 @@ class LoginController {
         $this->loginModel->getUserLoginInput();
         $this->loginView->setUsernameValue();
         if ($this->loginModel->validateLoginInputIfSubmitted()) {
-            
+            if ($this->loginModel->checkIfCredentialsMatchInDatabase()) {
+                $this->layoutView->render(true, $this->loginView);
+            }
         } else {
             $this->layoutView->render(false, $this->loginView);
         }
