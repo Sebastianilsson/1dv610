@@ -20,7 +20,6 @@ class MainController {
         } elseif ($this->loginView->isLoggedOutRequested()) {
             $this->loginController->logout();
         } else {
-            header("LOCATION: /index.php");
             $this->loginView->addMessage("");
             $this->layoutView->render($this->loginView->getIsLoggedIn(), $this->loginView);
         }

@@ -67,7 +67,12 @@ class RegisterView {
     }
 
     public function isRegisterFormSubmitted() {
-        return isset($_POST[self::$submitRegistration]) ? true : false;
+        if (isset($_POST[self::$submitRegistration])) {
+            header("LOCATION: /index.php");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function setUsernameValue($name) {
