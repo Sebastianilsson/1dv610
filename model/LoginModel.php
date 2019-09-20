@@ -27,7 +27,13 @@ class LoginModel {
                         $this->loginView->setUsernameValue(strip_tags($this->username));
                         $this->loginView->addMessage('Username contains invalid characters.');
                     }
+                } else {
+                    $this->loginView->addMessage('Password is missing');
+                    return false;
                 }
+            } else {
+                $this->loginView->addMessage('Username is missing');
+                return false;
             }
         }
     }
