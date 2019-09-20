@@ -19,6 +19,8 @@ class LoginController {
                 $this->loginView->addMessage('Wrong name or password');
                 $this->layoutView->render(false, $this->loginView);
             }
+        } else {
+            $this->layoutView->render(false, $this->loginView);
         }
     }
 
