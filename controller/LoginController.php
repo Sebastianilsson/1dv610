@@ -30,6 +30,7 @@ class LoginController {
     public function logout() {
         if($_SESSION['loggedIn']) {
             session_destroy();
+            session_unset($_SESSION);
             $this->loginView->addMessage('Bye bye!');
             $this->loginView->setIsLoggedIn(false);
             $_SESSION['loggedIn'] = false;
