@@ -106,7 +106,6 @@ class DatabaseModel {
                     return true;
                 }
             } else {
-
                 return false;
             }
         }
