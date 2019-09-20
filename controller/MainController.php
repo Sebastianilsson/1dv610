@@ -21,6 +21,7 @@ class MainController {
             $this->loginController->logout();
         } else {
             header("LOCATION: /index.php");
+            $this->loginView->addMessage("");
             $this->layoutView->render($this->loginView->getIsLoggedIn(), $this->loginView);
         }
     }
