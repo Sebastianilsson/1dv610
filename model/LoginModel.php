@@ -65,12 +65,12 @@ class LoginModel {
         }
     }
 
-    public function saveCookieToDatabase() {
-
+    public function saveCookieToDatabase($username, $password) {
+        $this->databaseModel->saveCookieToDatabase($username, $password);
     }
 
     public function checkIfCookieIsValid() {
-        if ($_COOKIE['LoginView::CookiePassword'] == $this->testRandomString) {
+        if ($this->databaseModel->cookiePasswordMatch()) {
             return true;
         }
     }

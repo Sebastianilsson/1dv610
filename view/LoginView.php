@@ -9,6 +9,7 @@ class LoginView {
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
+	private $cookiePasswordVariable = '';
 	private $name = '';
 	private $logInMessage = '';
 	private $loggedIn = false;
@@ -90,6 +91,10 @@ class LoginView {
 		return $this->loggedIn;
 	}
 
+	public function getCookiePassword() {
+		return $this->cookiePasswordVariable;
+	}
+
 	public function isKeepLoggedInRequested() {
 		return isset($_POST[self::$keep]);
 	}
@@ -120,7 +125,15 @@ class LoginView {
 	}
 
 	private function generateRandomString() {
-		return "thisIsARandomString";
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$lengthOfPassword = 20;
+    	$cookiePassword = '';
+    	for ($index = 0; $index < $lengthOfPassword; $index++) {
+        	$cookiePassword .= $characters[rand(0, $charactersLength - 1)];
+		}
+		$this->cookiePasswordVariable = $cookiePassword;
+    	return $cookiePassword;
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES

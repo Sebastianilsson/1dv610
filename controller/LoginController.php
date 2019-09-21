@@ -17,7 +17,8 @@ class LoginController {
                 $this->loginView->setIsLoggedIn(true);
                 if ($this->loginView->isKeepLoggedInRequested()) {
                     $this->loginView->setCookie();
-                    $this->loginModel->saveCookieToDatabase();
+                    $this->databaseModel->removeOldSessionIfExisting($this->loginView->getUsername());
+                    $this->loginModel->saveCookieToDatabase($this->loginView->getUsername(), $this->loginView->getCookiePassword());
                     $this->loginView->setLoginMessage("Welcome and you will be remembered");
                 } else {
                     $this->loginView->setLoginMessage("Welcome");
