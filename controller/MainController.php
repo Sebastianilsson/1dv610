@@ -13,16 +13,18 @@ class MainController {
     }
 
     public function router() {
-        if ($this->registerView->isRegisterSet()) {
-            $this->registerController->newRegistration();
-        } elseif ($this->loginView->isLoginRequested()) {
+        if ($this->loginView->isLoginFormSubmitted()) {
             $this->loginController->newLogin();
         } elseif ($this->loginView->isLoggedOutRequested()) {
             $this->loginController->logout();
-        } elseif(isset($_SESSION['loggedIn'])) {
+        } elseif (isset($_SESSION['isLoggedIn'])) {
+            $this->loginView->setIsLoggedIn(true);
             $this->layoutView->render(true, $this->loginView);
+        } elseif(isset($_COOKIE['LoginView::CookieName'])) {
+            $this->loginController->loginWithCookies();
+        } elseif ($this->registerView->isRegisterFormRequested()) {
+            $this->registerController->newRegistration();
         } else {
-            $this->loginView->addMessage("");
             $this->layoutView->render(false, $this->loginView);
         }
     }

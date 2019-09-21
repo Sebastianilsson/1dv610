@@ -29,8 +29,6 @@ class LoginView {
 		} else {
 			$response = $this->generateLoginFormHTML();
 		}
-		
-		
 		return $response;
 	}
 
@@ -76,20 +74,24 @@ class LoginView {
 		';
 	}
 
-	public function isLoginRequested() {
-		return isset($_POST[self::$login]);
-	}
+	// public function isLoginRequested() {
+	// 	return isset($_POST[self::$login]);
+	// }
 
 	public function getUsername() {
-        return isset($_POST[self::$username]) ? $_POST[self::$username] : "";
+        return isset($_POST[self::$username]) ? $_POST[self::$username] :"";
     }
 
     public function getPassword() {
-        return isset($_POST[self::$password]) ? $_POST[self::$password] : "";
+        return isset($_POST[self::$password]) ? $_POST[self::$password] :"";
 	}
 
 	public function getIsLoggedIn() {
 		return $this->loggedIn;
+	}
+
+	public function isKeepLoggedInRequested() {
+		return isset($_POST[self::$keep]);
 	}
 
 	public function isLoggedOutRequested() {
@@ -104,12 +106,21 @@ class LoginView {
 		$this->name = $name;
 	}
 
-	public function addMessage($message) {
+	public function setLoginMessage($message) {
 		$this->logInMessage = $message;
 	}
 
-	public function setIsLoggedIn($bool) {
-		$this->loggedIn = $bool;
+	public function setIsLoggedIn($value) {
+		$this->loggedIn = $value;
+	}
+
+	public function setCookie() {
+		setcookie(self::$cookieName, $this->getUsername(), time()+3600);
+		setcookie(self::$cookiePassword, $this->generateRandomString(), time()+3600);
+	}
+
+	private function generateRandomString() {
+		return "thisIsARandomString";
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES

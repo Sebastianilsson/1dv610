@@ -18,6 +18,9 @@ require_once('model/LoginModel.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
+//SESSION
+session_start();
+
 // Create main controller
 $componentController = new MainController();
 

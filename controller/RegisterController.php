@@ -10,7 +10,6 @@ class RegisterController {
     }
 
     public function newRegistration() {
-        // $this->layoutView->render(false, $this->registerView);
         $this->registerModel->getUserRegistrationInput();
         $this->registerView->setUsernameValue($this->registerView->getUsername());
         $this->registerModel->validateRegisterInputIfSubmitted();
@@ -19,7 +18,7 @@ class RegisterController {
             $this->registerModel->saveUserToDatabase();
             //MOVEs
             $this->loginView->setUsernameValue($this->registerView->getUsername());
-            $this->loginView->addMessage("Registered new user.");
+            $this->loginView->setLoginMessage("Registered new user.");
             $this->layoutView->render(false, $this->loginView);
         } else {
             $this->layoutView->render(false, $this->registerView);

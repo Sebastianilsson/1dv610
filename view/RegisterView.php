@@ -34,7 +34,7 @@ class RegisterView {
         ';
     }
 
-    public function isRegisterSet() {
+    public function isRegisterFormRequested() {
         return isset($_GET['register']);
     }
 

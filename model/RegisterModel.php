@@ -37,7 +37,7 @@ class RegisterModel {
             $message .= 'Username has too few characters, at least 3 characters.';
         } 
         if ($this->password == "") {
-           $message .= '<br> Password has too few characters, at least 6 characters.';
+            $message .= '<br> Password has too few characters, at least 6 characters.';
         } 
         if ($message == '') {
             return true;

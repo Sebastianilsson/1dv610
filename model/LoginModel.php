@@ -5,6 +5,9 @@ class LoginModel {
     private $password;
     private $loginView;
     private $databaseModel;
+    // private $testUser = "Admin";
+    // private $testPassword = "Password";
+    private $testRandomString = "thisIsARandomString";
 
     public function __construct($layoutView, $loginView, $databaseModel) {
         $this->layoutView = $layoutView;
@@ -17,32 +20,24 @@ class LoginModel {
         $this->password = $this->loginView->getPassword();
     }
 
-    public function validateLoginInputIfSubmitted() {
-        if ($this->loginView->isLoginFormSubmitted()) {
-            if ($this->usernameInputExists()) {
-                if ($this->passwordInputExists()) {
-                    if ($this->isUsernameCorrectFormat()) {
-                        return true;
-                    } else {
-                        $this->loginView->setUsernameValue(strip_tags($this->username));
-                        $this->loginView->addMessage('Username contains invalid characters.');
-                    }
+    public function validateLoginInput() {
+        if ($this->usernameInputExists()) {
+            if ($this->passwordInputExists()) {
+                if ($this->isUsernameCorrectFormat()) {
+                    return true;
+                } else {
+                    $this->loginView->setUsernameValue(strip_tags($this->username));
+                    $this->loginView->addMessage('Username contains invalid characters.');
                 }
             }
         }
     }
 
     public function checkIfCredentialsMatchInDatabase() {
-        //ONE FUNC WITH IS USERNAME FREE??
         if ($this->databaseModel->usernameExistsInDatabase($this->username)) {
             if ($this->databaseModel->userPasswordMatch($this->username, $this->password)) {
-                $this->loginView->setIsLoggedIn(true);
                 return true;
-            } else {
-                return false;
             }
-        } else {
-            return false;
         }
     }
 
@@ -50,7 +45,7 @@ class LoginModel {
         if ($this->username != "") {
             return true;
         } else {
-            $this->loginView->addMessage('Username is missing');
+            $this->loginView->setLoginMessage("Username is missing");
         }
     }
 
@@ -58,7 +53,7 @@ class LoginModel {
         if ($this->password != "") {
             return true;
         } else {
-            $this->loginView->addMessage('Password is missing');
+            $this->loginView->setLoginMessage('Password is missing');
         }
     }
 
@@ -66,6 +61,16 @@ class LoginModel {
         if (preg_match_all("/[^a-zA-Z0-9]/", $this->username) > 0) {
             return false;
         } else {
+            return true;
+        }
+    }
+
+    public function saveCookieToDatabase() {
+
+    }
+
+    public function checkIfCookieIsValid() {
+        if ($_COOKIE['LoginView::CookiePassword'] == $this->testRandomString) {
             return true;
         }
     }
