@@ -158,7 +158,7 @@ class DatabaseModel {
         if (!mysqli_stmt_prepare($statement, $sql)) {
             echo "Failed to get user";
         } else {
-            mysqli_stmt_bind_param($statement, "s", $username);
+            mysqli_stmt_bind_param($statement, "s", $_COOKIE['LoginView::CookieName']);
             mysqli_stmt_execute($statement);
             $matchingUser = mysqli_stmt_get_result($statement);
             if ($user = mysqli_fetch_assoc($matchingUser)) {    
