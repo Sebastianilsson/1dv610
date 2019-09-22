@@ -13,9 +13,7 @@ class MainController {
     }
 
     public function router() {
-        if ($this->loginView->isLoginFormSubmitted()) {
-            $this->loginController->newLogin();
-        } elseif ($this->loginView->isLoggedOutRequested()) {
+        if ($this->loginView->isLoggedOutRequested()) {
             $this->loginController->logout();
         } elseif (isset($_SESSION['isLoggedIn'])) {
             session_regenerate_id(true);
@@ -23,7 +21,9 @@ class MainController {
             $this->layoutView->render(true, $this->loginView);
         } elseif(isset($_COOKIE['LoginView::CookieName'])) {
             $this->loginController->loginWithCookies();
-        } elseif ($this->registerView->isRegisterFormRequested()) {
+        } elseif ($this->loginView->isLoginFormSubmitted()) {
+            $this->loginController->newLogin();
+        }  elseif ($this->registerView->isRegisterFormRequested()) {
             $this->registerController->newRegistration();
         } else {
             $this->layoutView->render(false, $this->loginView);
