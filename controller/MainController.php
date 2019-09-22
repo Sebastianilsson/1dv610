@@ -18,6 +18,7 @@ class MainController {
         } elseif ($this->loginView->isLoggedOutRequested()) {
             $this->loginController->logout();
         } elseif (isset($_SESSION['isLoggedIn'])) {
+            session_regenerate_id(true);
             $this->loginView->setIsLoggedIn(true);
             $this->layoutView->render(true, $this->loginView);
         } elseif(isset($_COOKIE['LoginView::CookieName'])) {
