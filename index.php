@@ -19,6 +19,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 //SESSION
+session_name("MYOWNSESSIONCOOKIE");
 session_start();
 
 // Create main controller
