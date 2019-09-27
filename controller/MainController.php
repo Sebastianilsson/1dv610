@@ -15,7 +15,7 @@ class MainController {
     public function router() {
         if ($this->loginView->isLoggedOutRequested()) {
             $this->loginController->logout();
-        } elseif (isset($_SESSION['isLoggedIn'])) {
+        } elseif (isset($_SESSION['isLoggedIn']) && isset($_SESSION['ip']) && isset($_SESSION['userAgent']) && $_SESSION['ip'] == $_SERVER['REMOTE_ADDR'] && $_SESSION['userAgent'] == $_SERVER['HTTP_USER_AGENT']) {
             $this->loginController->loginWithSession();
         } elseif(isset($_COOKIE['LoginView::CookieName'])) {
             $this->loginController->loginWithCookies();

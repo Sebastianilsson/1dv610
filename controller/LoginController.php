@@ -15,6 +15,8 @@ class LoginController {
             if ($this->loginModel->checkIfCredentialsMatchInDatabase()) {
                 session_regenerate_id(true);
                 $_SESSION['isLoggedIn'] = true;
+                $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
+                $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
                 $this->loginView->setIsLoggedIn(true);
                 if ($this->loginView->isKeepLoggedInRequested()) {
                     $this->setCookiesAndLoginMessages();
