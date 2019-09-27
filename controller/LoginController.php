@@ -62,7 +62,7 @@ class LoginController {
             session_regenerate_id(true);
             $_SESSION['isLoggedIn'] = true;
             $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
-            $_SESSION['clientIP'] == $_SERVER['REMOTE_ADDR'];
+            $_SESSION['clientIP'] = $_SERVER['REMOTE_ADDR'];
             $this->loginView->setLoginMessage("Welcome back with cookie");
             $this->layoutView->render(true, $this->loginView);
         } else {
