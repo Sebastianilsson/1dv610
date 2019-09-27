@@ -15,6 +15,8 @@ class LoginController {
             if ($this->loginModel->checkIfCredentialsMatchInDatabase()) {
                 session_regenerate_id(true);
                 $_SESSION['isLoggedIn'] = true;
+                $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
+                $_SESSION['clientIp'] = $_SERVER['REMOTE_ADDR'];
                 $this->loginView->setIsLoggedIn(true);
                 if ($this->loginView->isKeepLoggedInRequested()) {
                     $this->loginView->setCookie();
@@ -59,6 +61,8 @@ class LoginController {
             $this->loginView->setIsLoggedIn(true);
             session_regenerate_id(true);
             $_SESSION['isLoggedIn'] = true;
+            $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
+            $_SESSION['clientIP'] == $_SERVER['REMOTE_ADDR'];
             $this->loginView->setLoginMessage("Welcome back with cookie");
             $this->layoutView->render(true, $this->loginView);
         } else {
