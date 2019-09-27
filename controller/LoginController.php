@@ -17,10 +17,7 @@ class LoginController {
                 $_SESSION['isLoggedIn'] = true;
                 $this->loginView->setIsLoggedIn(true);
                 if ($this->loginView->isKeepLoggedInRequested()) {
-                    $this->loginView->setCookie();
-                    $this->databaseModel->removeOldSessionIfExisting($this->loginView->getUsername());
-                    $this->loginModel->saveCookieToDatabase($this->loginView->getUsername(), $this->loginView->getCookiePassword());
-                    $this->loginView->setLoginMessage("Welcome and you will be remembered");
+                    $this->setCookiesAndLoginMessages();
                 } else {
                     $this->loginView->setLoginMessage("Welcome");
                 }
@@ -32,26 +29,13 @@ class LoginController {
         } 
         $this->loginView->setUsernameValue($this->loginView->getUsername());
         $this->layoutView->render(false, $this->loginView);
-        // $this->loginModel->getUserLoginInput();
-        // $this->loginView->setUsernameValue($this->loginView->getUsername());
-        // if ($this->loginModel->validateLoginInputIfSubmitted()) {
-        //     if ($this->loginModel->checkIfCredentialsMatchInDatabase()) {
-        //         $this->loginView->setIsLoggedIn(true);
-        //         $_SESSION['loggedIn'] = true;
-        //         if ($this->loginView->isKeepLoggedInSet()) {
-        //             $this->loginView->setCookie();
-        //             $this->loginView->addMessage('Welcome and you will be remembered');
-        //         } else {
-        //             $this->loginView->addMessage('Welcome');
-        //         }
-        //         $this->layoutView->render(true, $this->loginView);
-        //     } else {
-        //         $this->loginView->addMessage('Wrong name or password');
-        //         $this->layoutView->render(false, $this->loginView);
-        //     }
-        // } else {
-        //     $this->layoutView->render(false, $this->loginView);
-        // }
+    }
+
+    private function setCookiesAndLoginMessages() {
+        $this->loginView->setCookie();
+        $this->databaseModel->removeOldSessionIfExisting($this->loginView->getUsername());
+        $this->loginModel->saveCookieToDatabase($this->loginView->getUsername(), $this->loginView->getCookiePassword());
+        $this->loginView->setLoginMessage("Welcome and you will be remembered");
     }
 
     public function loginWithCookies() {
@@ -66,10 +50,12 @@ class LoginController {
             $this->loginView->setLoginMessage("Wrong information in cookies");
             $this->layoutView->render(false, $this->loginView);
         }
-        // $this->loginView->setUserCredentialsFromCookie();
-        // $this->loginView->setIsLoggedIn(true);
-        // $this->loginView->setLoginMessage("Welcome back with cookie");
-        // $this->layoutView->render(true, $this->loginView);
+    }
+
+    public function loginWithSession() {
+        session_regenerate_id(true);
+        $this->loginView->setIsLoggedIn(true);
+        $this->layoutView->render(true, $this->loginView);
     }
 
     private function destroyCookie() {
