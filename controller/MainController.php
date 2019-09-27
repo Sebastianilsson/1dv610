@@ -15,7 +15,7 @@ class MainController {
     public function router() {
         if ($this->loginView->isLoggedOutRequested()) {
             $this->loginController->logout();
-        } elseif (isset($_SESSION['isLoggedIn']) && $_SESSION['userAgent'] == $_SERVER['HTTP_USER_AGENT'] && $_SESSION['clientIp'] == $_SERVER['REMOTE_ADDR']) {
+        } elseif (isset($_SESSION['isLoggedIn'])) {
             session_regenerate_id(true);
             $this->loginView->setIsLoggedIn(true);
             $this->layoutView->render(true, $this->loginView);
