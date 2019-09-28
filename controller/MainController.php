@@ -17,12 +17,12 @@ class MainController {
             $this->loginController->logout();
         } elseif ($this->registerView->isRegisterFormRequested()) {
             $this->registerController->newRegistration();
-        } elseif ($this->loginView->isLoginFormSubmitted()) {
-            $this->loginController->newLogin();
-        } elseif (isset($_SESSION['isLoggedIn'])) {
-            $this->loginController->loginWithSession();
         } elseif(isset($_COOKIE['LoginView::CookieName'])) {
             $this->loginController->loginWithCookies();
+        } elseif (isset($_SESSION['isLoggedIn'])) {
+            $this->loginController->loginWithSession();
+        } elseif ($this->loginView->isLoginFormSubmitted()) {
+            $this->loginController->newLogin();
         } else {
             $this->layoutView->render(false, $this->loginView);
         }
