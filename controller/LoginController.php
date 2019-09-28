@@ -15,6 +15,8 @@ class LoginController {
             if ($this->loginModel->checkIfCredentialsMatchInDatabase()) {
                 session_regenerate_id(true);
                 $_SESSION['isLoggedIn'] = true;
+                $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
+                $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
                 $this->loginView->setIsLoggedIn(true);
                 if ($this->loginView->isKeepLoggedInRequested()) {
                     $this->setCookiesAndLoginMessages();
@@ -45,6 +47,8 @@ class LoginController {
             session_regenerate_id(true);
             if (!isset($_SESSION['isLoggedIn'])) {
                 $_SESSION['isLoggedIn'] = true;
+                $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
+                $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
                 $this->loginView->setLoginMessage("Welcome back with cookie");
             }
             $this->layoutView->render(true, $this->loginView);
@@ -56,9 +60,12 @@ class LoginController {
     }
 
     public function loginWithSession() {
-        session_regenerate_id(true);
-        $this->loginView->setIsLoggedIn(true);
-        $this->layoutView->render(true, $this->loginView);
+        if ($_SESSION['userAgent'] == $_SERVER['HTTP_USER_AGENT'] && $_SESSION['ip'] == $_SERVER['REMOTE_ADDR']) {
+            session_regenerate_id(true);
+            $this->loginView->setIsLoggedIn(true);
+            $this->layoutView->render(true, $this->loginView);
+        }
+        
     }
 
     private function destroyCookie() {
