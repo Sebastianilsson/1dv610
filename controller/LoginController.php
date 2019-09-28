@@ -40,10 +40,13 @@ class LoginController {
 
     public function loginWithCookies() {
         if ($this->loginModel->checkIfCookieIsValid()) {
+
             $this->loginView->setIsLoggedIn(true);
             session_regenerate_id(true);
-            $_SESSION['isLoggedIn'] = true;
-            $this->loginView->setLoginMessage("Welcome back with cookie");
+            if (!isset($_SESSION['isLoggedIn'])) {
+                $_SESSION['isLoggedIn'] = true;
+                $this->loginView->setLoginMessage("Welcome back with cookie");
+            }
             $this->layoutView->render(true, $this->loginView);
         } else {
             $this->destroyCookie();
