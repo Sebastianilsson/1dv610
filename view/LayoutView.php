@@ -21,7 +21,7 @@ class LayoutView {
           <div class="container">
               ' . $activeView->response() . '
               
-              ' . $this->dateTimeView->show() . '
+              ' . $this->dateTimeView->showDateTimeString() . '
           </div>
          </body>
       </html>

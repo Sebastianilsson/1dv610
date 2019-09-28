@@ -8,7 +8,7 @@ class LoginController {
         $this->databaseModel = $databaseModel;
         $this->loginModel = new LoginModel($this->layoutView, $this->loginView, $this->databaseModel);
     }
-
+    // Method called if login was requested.
     public function newLogin() {
         $this->loginModel->getUserLoginInput();
         if ($this->loginModel->validateLoginInput()) {
@@ -40,9 +40,9 @@ class LoginController {
         $this->loginView->setLoginMessage("Welcome and you will be remembered");
     }
 
+    // Method called if the user already has a cookie from the site
     public function loginWithCookies() {
         if ($this->loginModel->checkIfCookieIsValid()) {
-
             $this->loginView->setIsLoggedIn(true);
             session_regenerate_id(true);
             if (!isset($_SESSION['isLoggedIn'])) {
@@ -59,6 +59,7 @@ class LoginController {
         }
     }
 
+    // Method called if the user already has an active session from the site
     public function loginWithSession() {
         if (!$this->checkIfSessionHijacked()) {
             session_regenerate_id(true);
@@ -80,6 +81,7 @@ class LoginController {
         setcookie ("LoginView::CookiePassword", "", time() - 3600);
     }
 
+    // Method called if logout is requested
     public function logout() {
         if (isset($_SESSION['isLoggedIn'])) {
             session_unset();

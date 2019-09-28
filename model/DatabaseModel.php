@@ -2,15 +2,18 @@
 
 class DatabaseModel {
 
+    // Only used to connect to local database during development
     private $databaseServerName = "localhost";
     private $databaseUserName = "root";
     private $databasePassword = "";
     private $databaseName = "1dv610-l2";
+
     private $connection;
     public function __construct() {
         $this->checkIfOnLocalhost();
     }
 
+    // Method that sets credentials for database if not on localhost
     private function checkIfOnLocalhost() {
         $whitelist = array(
             '127.0.0.1',

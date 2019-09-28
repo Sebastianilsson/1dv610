@@ -3,7 +3,7 @@
 class DateTimeView {
 
 
-	public function show() {
+	public function showDateTimeString() {
 		date_default_timezone_set("Europe/Stockholm");
 		$timeString = $this->getWeekday() . ", the " . $this->getDayOfMonth() . " of " . $this->getMonth() . " " . $this->getYear() . ", The time is " . $this->getTime();
 		return '<p>' . $timeString . '</p>';

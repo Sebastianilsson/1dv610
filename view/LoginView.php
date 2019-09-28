@@ -75,10 +75,6 @@ class LoginView {
 		';
 	}
 
-	// public function isLoginRequested() {
-	// 	return isset($_POST[self::$login]);
-	// }
-
 	public function getUsername() {
         return isset($_POST[self::$username]) ? $_POST[self::$username] :"";
     }
@@ -134,11 +130,6 @@ class LoginView {
 		}
 		$this->cookiePasswordVariable = $cookiePassword;
     	return $cookiePassword;
-	}
-
-	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
-	private function getRequestUserName() {
-		//RETURN REQUEST VARIABLE: USERNAME
 	}
 	
 }

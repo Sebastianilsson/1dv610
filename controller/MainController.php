@@ -11,7 +11,7 @@ class MainController {
         $this->registerController = new RegisterController($this->layoutView, $this->registerView, $this->loginView, $this->databaseModel);
         $this->loginController = new LoginController($this->layoutView, $this->loginView, $this->databaseModel);
     }
-
+    // Routes the user through the application depending on user action
     public function router() {
         if ($this->loginView->isLoggedOutRequested()) {
             $this->loginController->logout();

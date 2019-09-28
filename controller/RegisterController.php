@@ -9,6 +9,7 @@ class RegisterController {
         $this->registerModel = new RegisterModel($this->registerView, $this->databaseModel);
     }
 
+    // Method called if registration of a new user is requested
     public function newRegistration() {
         $this->registerModel->getUserRegistrationInput();
         $this->registerView->setUsernameValue($this->registerView->getUsername());
@@ -16,7 +17,6 @@ class RegisterController {
         if ($this->registerModel->isValidationOk()) {
             $this->registerModel->hashPassword();
             $this->registerModel->saveUserToDatabase();
-            //MOVEs
             $this->loginView->setUsernameValue($this->registerView->getUsername());
             $this->loginView->setLoginMessage("Registered new user.");
             $this->layoutView->render(false, $this->loginView);

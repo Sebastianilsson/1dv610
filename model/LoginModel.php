@@ -5,9 +5,6 @@ class LoginModel {
     private $password;
     private $loginView;
     private $databaseModel;
-    // private $testUser = "Admin";
-    // private $testPassword = "Password";
-    private $testRandomString = "thisIsARandomString";
 
     public function __construct($layoutView, $loginView, $databaseModel) {
         $this->layoutView = $layoutView;
