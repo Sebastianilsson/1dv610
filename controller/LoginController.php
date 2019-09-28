@@ -71,7 +71,6 @@ class LoginController {
 
     private function checkIfSessionHijacked() {
         if ($_SESSION['userAgent'] == $_SERVER['HTTP_USER_AGENT'] && $_SESSION['ip'] == $_SERVER['REMOTE_ADDR']) {
-            echo "here";
             return false;
         } else { return true;}
     }
