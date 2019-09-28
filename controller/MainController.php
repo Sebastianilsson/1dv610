@@ -15,14 +15,14 @@ class MainController {
     public function router() {
         if ($this->loginView->isLoggedOutRequested()) {
             $this->loginController->logout();
+        } elseif ($this->registerView->isRegisterFormRequested()) {
+            $this->registerController->newRegistration();
+        } elseif ($this->loginView->isLoginFormSubmitted()) {
+            $this->loginController->newLogin();
         } elseif (isset($_SESSION['isLoggedIn'])) {
             $this->loginController->loginWithSession();
         } elseif(isset($_COOKIE['LoginView::CookieName'])) {
             $this->loginController->loginWithCookies();
-        } elseif ($this->loginView->isLoginFormSubmitted()) {
-            $this->loginController->newLogin();
-        }  elseif ($this->registerView->isRegisterFormRequested()) {
-            $this->registerController->newRegistration();
         } else {
             $this->layoutView->render(false, $this->loginView);
         }
