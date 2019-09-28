@@ -72,7 +72,7 @@ class LoginController {
     private function checkIfSessionHijacked() {
         if ($_SESSION['userAgent'] == $_SERVER['HTTP_USER_AGENT'] && $_SESSION['ip'] == $_SERVER['REMOTE_ADDR']) {
             return false;
-        } 
+        } else { return true;}
     }
 
     private function destroyCookie() {
