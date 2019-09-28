@@ -60,13 +60,19 @@ class LoginController {
     }
 
     public function loginWithSession() {
-        if ($_SESSION['userAgent'] == $_SERVER['HTTP_USER_AGENT'] && $_SESSION['ip'] == $_SERVER['REMOTE_ADDR']) {
+        if (!$this->checkIfSessionHijacked()) {
             session_regenerate_id(true);
             $this->loginView->setIsLoggedIn(true);
             $this->layoutView->render(true, $this->loginView);
         } else {
             $this->layoutView->render(false, $this->loginView);
         }
+    }
+
+    private function checkIfSessionHijacked() {
+        if ($_SESSION['userAgent'] == $_SERVER['HTTP_USER_AGENT'] && $_SESSION['ip'] == $_SERVER['REMOTE_ADDR']) {
+            return false;
+        } 
     }
 
     private function destroyCookie() {
