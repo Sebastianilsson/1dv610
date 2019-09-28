@@ -64,8 +64,9 @@ class LoginController {
             session_regenerate_id(true);
             $this->loginView->setIsLoggedIn(true);
             $this->layoutView->render(true, $this->loginView);
+        } else {
+            $this->layoutView->render(false, $this->loginView);
         }
-        
     }
 
     private function destroyCookie() {
