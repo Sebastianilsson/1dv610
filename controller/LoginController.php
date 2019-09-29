@@ -16,7 +16,7 @@ class LoginController {
                 session_regenerate_id(true);
                 $_SESSION['isLoggedIn'] = true;
                 $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
-                $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
+                $_SESSION['ip'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
                 $this->loginView->setIsLoggedIn(true);
                 if ($this->loginView->isKeepLoggedInRequested()) {
                     $this->setCookiesAndLoginMessages();
@@ -48,7 +48,7 @@ class LoginController {
             if (!isset($_SESSION['isLoggedIn'])) {
                 $_SESSION['isLoggedIn'] = true;
                 $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
-                $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
+                $_SESSION['ip'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
                 $this->loginView->setLoginMessage("Welcome back with cookie");
             }
             $this->layoutView->render(true, $this->loginView);
@@ -71,7 +71,7 @@ class LoginController {
     }
 
     private function checkIfSessionHijacked() {
-        if ($_SESSION['userAgent'] == $_SERVER['HTTP_USER_AGENT'] && $_SESSION['ip'] == $_SERVER['REMOTE_ADDR']) {
+        if ($_SESSION['userAgent'] == $_SERVER['HTTP_USER_AGENT'] && $_SESSION['ip'] == $_SERVER['HTTP_X_FORWARDED_FOR']) {
             return false;
         } else { return true;}
     }
