@@ -60,7 +60,7 @@ class SessionModel {
         $this->destroyCookies();
     }
 
-    private function destroyCookies() {
+    public function destroyCookies() {
         setcookie ("LoginView::CookieName", "", time() - 3600);
         setcookie ("LoginView::CookiePassword", "", time() - 3600);
     }
