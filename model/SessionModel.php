@@ -57,6 +57,10 @@ class SessionModel {
     public function destroySessionAndCookies() {
         session_unset();
         session_destroy();
+        $this->destroyCookies();
+    }
+
+    private function destroyCookies() {
         setcookie ("LoginView::CookieName", "", time() - 3600);
         setcookie ("LoginView::CookiePassword", "", time() - 3600);
     }

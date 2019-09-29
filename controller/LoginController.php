@@ -44,7 +44,7 @@ class LoginController {
             }
             $this->layoutView->render(true, $this->loginView);
         } else {
-            $this->destroyCookie();
+            $this->sessionModel->destroyCookies();
             $this->loginView->setLoginMessage("Wrong information in cookies");
             $this->layoutView->render(false, $this->loginView);
         }
