@@ -18,7 +18,7 @@ class RegisterView {
         return '
         <a href="?">Back to login</a>
         <h2>Register new user</h2>
-        <form method="post" action="/">
+        <form method="post" action="?register">
             <fieldset>
                 <legend>Register - choose a username and password</legend>
                 <p id='. self::$message .'>'. $this->registerMessage .'</p>
