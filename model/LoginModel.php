@@ -5,6 +5,7 @@ class LoginModel {
     private $password;
     private $loginView;
     private $databaseModel;
+    private $layoutView;
 
     public function __construct($layoutView, $loginView, $databaseModel) {
         $this->layoutView = $layoutView;

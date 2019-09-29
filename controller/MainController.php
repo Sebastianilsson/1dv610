@@ -2,6 +2,17 @@
 
 class MainController {
 
+    private $layoutView;
+    private $loginView;
+    private $databaseModel;
+    private $sessionModel;
+    private $loginModel;
+    private $dateTimeView;
+    private $registerView;
+    private $registerController;
+    private $loginController;
+
+
     public function __construct() {
         $this->databaseModel = new DatabaseModel();
         $this->loginView = new LoginView();

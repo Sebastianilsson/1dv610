@@ -2,6 +2,12 @@
 
 class LoginController {
 
+    private $layoutView;
+    private $loginView;
+    private $databaseModel;
+    private $sessionModel;
+    private $loginModel;
+
     public function __construct($layoutView, $loginView, $databaseModel) {
         $this->layoutView = $layoutView;
         $this->loginView = $loginView;

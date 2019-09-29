@@ -1,6 +1,13 @@
 <?php
 
 class RegisterController {
+
+    private $layoutView;
+    private $loginView;
+    private $databaseModel;
+    private $registerView;
+    private $registerModel;
+
     public function __construct($layoutView, $registerView, $loginView, $databaseModel) {
         $this->registerView = $registerView;
         $this->databaseModel = $databaseModel;
