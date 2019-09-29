@@ -61,14 +61,4 @@ class LoginModel {
             return true;
         }
     }
-
-    public function saveCookieToDatabase($username, $password) {
-        $this->databaseModel->saveCookieToDatabase($username, $password);
-    }
-
-    public function checkIfCookieIsValid() {
-        if ($this->databaseModel->cookiePasswordMatch()) {
-            return true;
-        }
-    }
 }

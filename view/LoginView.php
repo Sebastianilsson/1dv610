@@ -87,10 +87,6 @@ class LoginView {
 		return $this->loggedIn;
 	}
 
-	public function getCookiePassword() {
-		return $this->cookiePasswordVariable;
-	}
-
 	public function isKeepLoggedInRequested() {
 		return isset($_POST[self::$keep]);
 	}
@@ -113,23 +109,6 @@ class LoginView {
 
 	public function setIsLoggedIn($value) {
 		$this->loggedIn = $value;
-	}
-
-	public function setCookie() {
-		setcookie(self::$cookieName, $this->getUsername(), time()+3600);
-		setcookie(self::$cookiePassword, $this->generateRandomString(), time()+3600);
-	}
-
-	private function generateRandomString() {
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$charactersLength = strlen($characters);
-		$lengthOfPassword = 20;
-    	$cookiePassword = '';
-    	for ($index = 0; $index < $lengthOfPassword; $index++) {
-        	$cookiePassword .= $characters[rand(0, $charactersLength - 1)];
-		}
-		$this->cookiePasswordVariable = $cookiePassword;
-    	return $cookiePassword;
 	}
 	
 }

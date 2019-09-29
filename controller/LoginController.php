@@ -6,6 +6,7 @@ class LoginController {
         $this->layoutView = $layoutView;
         $this->loginView = $loginView;
         $this->databaseModel = $databaseModel;
+        $this->sessionModel = new SessionModel($this->databaseModel);
         $this->loginModel = new LoginModel($this->layoutView, $this->loginView, $this->databaseModel);
     }
     // Method called if login was requested.
@@ -13,13 +14,12 @@ class LoginController {
         $this->loginModel->getUserLoginInput();
         if ($this->loginModel->validateLoginInput()) {
             if ($this->loginModel->checkIfCredentialsMatchInDatabase()) {
-                session_regenerate_id(true);
-                $_SESSION['isLoggedIn'] = true;
-                $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
-                $_SESSION['ip'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                $this->sessionModel->regenerateSessionId();
+                $this->sessionModel->setSessionVariables();
                 $this->loginView->setIsLoggedIn(true);
                 if ($this->loginView->isKeepLoggedInRequested()) {
-                    $this->setCookiesAndLoginMessages();
+                    $this->sessionModel->handleNewCookies($this->loginView->getUsername());
+                    $this->loginView->setLoginMessage("Welcome and you will be remembered");
                 } else {
                     $this->loginView->setLoginMessage("Welcome");
                 }
@@ -33,22 +33,13 @@ class LoginController {
         $this->layoutView->render(false, $this->loginView);
     }
 
-    private function setCookiesAndLoginMessages() {
-        $this->loginView->setCookie();
-        $this->databaseModel->removeOldSessionIfExisting($this->loginView->getUsername());
-        $this->loginModel->saveCookieToDatabase($this->loginView->getUsername(), $this->loginView->getCookiePassword());
-        $this->loginView->setLoginMessage("Welcome and you will be remembered");
-    }
-
     // Method called if the user already has a cookie from the site
     public function loginWithCookies() {
-        if ($this->loginModel->checkIfCookieIsValid()) {
+        if ($this->sessionModel->checkIfCookieIsValid()) {
             $this->loginView->setIsLoggedIn(true);
-            session_regenerate_id(true);
-            if (!isset($_SESSION['isLoggedIn'])) {
-                $_SESSION['isLoggedIn'] = true;
-                $_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
-                $_SESSION['ip'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            $this->sessionModel->regenerateSessionId();
+            if (!$this->sessionModel->isSessionSet()) {
+                $this->sessionModel->setSessionVariables();
                 $this->loginView->setLoginMessage("Welcome back with cookie");
             }
             $this->layoutView->render(true, $this->loginView);
@@ -61,8 +52,8 @@ class LoginController {
 
     // Method called if the user already has an active session from the site
     public function loginWithSession() {
-        if (!$this->checkIfSessionHijacked()) {
-            session_regenerate_id(true);
+        if (!$this->sessionModel->isSessionHijacked()) {
+            $this->sessionModel->regenerateSessionId();
             $this->loginView->setIsLoggedIn(true);
             $this->layoutView->render(true, $this->loginView);
         } else {
@@ -70,27 +61,12 @@ class LoginController {
         }
     }
 
-    private function checkIfSessionHijacked() {
-        if ($_SESSION['userAgent'] == $_SERVER['HTTP_USER_AGENT'] && $_SESSION['ip'] == $_SERVER['HTTP_X_FORWARDED_FOR']) {
-            return false;
-        } else { return true;}
-    }
-
-    private function destroyCookie() {
-        setcookie ("LoginView::CookieName", "", time() - 3600);
-        setcookie ("LoginView::CookiePassword", "", time() - 3600);
-    }
-
     // Method called if logout is requested
     public function logout() {
-        if (isset($_SESSION['isLoggedIn'])) {
-            session_unset();
-            session_destroy();
-            $this->destroyCookie();
+        if ($this->sessionModel->isSessionSet()) {
+            $this->sessionModel->destroySessionAndCookies();
             $this->loginView->setLoginMessage("Bye bye!");
-            $this->layoutView->render(false, $this->loginView);
-        } else {
-            $this->layoutView->render(false, $this->loginView);
         }
+        $this->layoutView->render(false, $this->loginView);
     }
 }
